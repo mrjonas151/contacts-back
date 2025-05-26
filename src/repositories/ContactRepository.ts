@@ -24,6 +24,10 @@ export class ContactRepository {
     return this.repository.findOneBy({ id: Number(id) });
   }
 
+  async findByUserId(userId: number): Promise<Contact[]> {
+    return this.repository.find({ where: { userId } });
+  }
+
   async remove(contact: Contact): Promise<Contact> {
     return this.repository.remove(contact);
   }
