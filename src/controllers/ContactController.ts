@@ -12,15 +12,17 @@ export class ContactController {
 
   async create(req: Request, res: Response) {
     const { name, email, phone, favorite } = req.body;
+    const userId = req.user.id;
 
-    const contact = this.contactRepository.create({ name, email, phone, favorite });
+    const contact = this.contactRepository.create({ name, email, phone, favorite, userId });
     await this.contactRepository.save(contact);
 
     return res.status(201).json(contact);
   }
 
   async getAll(req: Request, res: Response) {
-    const contacts = await this.contactRepository.findAll();
+    const userId = req.user.id;
+    const contacts = await this.contactRepository.findByUserId(userId);
     return res.json(contacts);
   }
 
