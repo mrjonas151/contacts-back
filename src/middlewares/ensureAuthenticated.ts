@@ -12,18 +12,22 @@ declare global {
   }
 }
 
-export function ensureAuthenticated(req: Request, res: Response, next: NextFunction) {
+export function ensureAuthenticated(req: Request, res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
 
-  if (!authHeader) return res.status(401).json({ error: "Token faltando" });
+  if (!authHeader) {
+    res.status(401).json({ error: "Token faltando" });
+    return; 
+  }
 
   const [, token] = authHeader.split(" ");
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number, email: string };
     req.user = decoded;
-    return next();
+    next(); 
   } catch {
-    return res.status(401).json({ error: "Token inválido" });
+    res.status(401).json({ error: "Token inválido" });
+    return; 
   }
 }
