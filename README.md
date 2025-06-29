@@ -21,7 +21,7 @@ Sistema de gerenciamento de contatos com autenticação JWT e envio de emails.
 
 ### 1. Clonar o repositório
 ```bash
-git clone https://jonasaquino@bitbucket.org/newm-dev1/projeto3_back_jonas.git
+git clone https://mrjonas151/contacts-back.git
 cd projeto3_back_jonas
 ```
 
